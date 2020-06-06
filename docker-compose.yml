@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mpd:
+    build: .
+    ports:
+      - "6600:6600"
+      - "8800:8800"
+    command: mpd --stdout --no-daemon
+    environment:
+      PULSE_SERVER: docker.for.mac.localhost
+    volumes:
+      - ./mpd.conf:/etc/mpd.conf:cached
+      - ./music://var/lib/mpd/music:cached
+      - ~/.config/pulse:/home/pulseaudio/.config/pulse
+    restart: always
